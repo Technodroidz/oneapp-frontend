@@ -189,9 +189,9 @@ return (
                         <Link to="/DetailsPage">
                         <img src={youtube.image} alt="img"/></Link>
                         <Link to="/DetailsPage">
-                        <h6>
+                        {/* <h6>
                         {youtube.channeltitle}
-                        </h6>
+                        </h6> */}
                         <h6>
                         {youtube.newstitle}
                         </h6>
