@@ -12,8 +12,12 @@ export const Login = () => {
     const submitForm = () => {
       // console.log(email+' '+password);
       http.post('/login',{email:email,password:password}).then((res)=>{
+        try{ 
         // console.log(res.data);
         setToken(res.data.user,res.data.access_token);
+        }catch(e){
+         console.log('error', e);        
+     }
       });
     }
 

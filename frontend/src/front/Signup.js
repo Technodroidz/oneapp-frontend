@@ -16,11 +16,15 @@ export const Signup = () => {
 
    const submitForm = () =>{
          http.post('/register',{name:name,email:email,country:country,phone:phone,password:password,profilepic:profilepic}).then((res)=>{
-            // console.log(res);
-             if(res.status === 200){
-              alert(res.data);
-              navigate('/Login');
-           }
+           try{ 
+               // console.log(res);
+               if(res.status === 200){
+               alert(res.data);
+               navigate('/Login');
+               }
+            }catch(e){
+               console.log('error', e);        
+            } 
         })
   }
 

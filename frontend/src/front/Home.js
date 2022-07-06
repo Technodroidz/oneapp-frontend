@@ -8,17 +8,39 @@ import { useEffect, useState } from 'react';
 import http from '../http'
 export const Home = () => {
 
-   const[allusers, setUsers] = useState([]);
+   const[allfm, setFMs] = useState([]);
       useEffect(()=>{
          fetchAllFMChannels();
       },[]);
 
-  const fetchAllFMChannels = () => {
+   const fetchAllFMChannels = () => {
       http.get('/fmchannels').then(res=>{
-         setUsers(res.data);
-       // console.log(res.data);
+         try{
+            setFMs(res.data);
+         }catch(e){
+            console.log('error', e);        
+         }   
+         // console.log(res.data);
       })
-  }
+   }
+
+   const[allyoutube, setYoutubes] = useState([]);
+   useEffect(()=>{
+      fetchAllYouTubeChannels();
+   },[]);
+
+   const fetchAllYouTubeChannels = () => {
+      http.get('/youtubechannels').then(res=>{
+         try{
+            setYoutubes(res.data);
+         }catch(e){
+            console.log('error', e);        
+         }
+         //console.log(res.data);
+      })
+   }
+
+
    
 $(document).ready(function() {
 $('#vip-channels').owlCarousel({
@@ -161,42 +183,23 @@ return (
          <div className="row">
             <div className="cover-wrapper">
                <div id="tv-stream" className="owl-carousel text-center mt-1">
+               {allyoutube.map((youtube,index)=>( 
                   <div className="item">
                      <div className="client-inners">
                         <Link to="/DetailsPage">
-                        <img src="img/BBC_News.png" alt="img"/></Link>
+                        <img src={youtube.image} alt="img"/></Link>
                         <Link to="/DetailsPage">
                         <h6>
-                           BBC News
+                        {youtube.channeltitle}
+                        </h6>
+                        <h6>
+                        {youtube.newstitle}
                         </h6>
                         </Link>
                         <p><i className="fa fa-star"></i> 3k  &nbsp; <i className="fa fa-circle dot-red"></i> <samp className="circle-title">100K</samp></p>
                      </div>
                   </div>
-                  <div className="item">
-                     <div className="client-inners">
-                        <Link to="/DetailsPage">
-                        <img src="img/euronews.png" alt="img"/></Link>
-                        <Link to="/DetailsPage">
-                        <h6>
-                           Euro News
-                        </h6>
-                        </Link>
-                        <p><i className="fa fa-star"></i> 3k  &nbsp; <i className="fa fa-circle dot-red"></i> <samp className="circle-title">100K</samp></p>
-                     </div>
-                  </div>
-                  <div className="item">
-                     <div className="client-inners">
-                        <Link to="/DetailsPage">
-                        <img src="img/cnn-logo.png" alt="img"/></Link>
-                        <Link to="/DetailsPage">
-                        <h6>
-                           CNN
-                        </h6>
-                        </Link>
-                        <p><i className="fa fa-star"></i> 3k  &nbsp; <i className="fa fa-circle dot-red"></i> <samp className="circle-title">100K</samp></p>
-                     </div>
-                  </div>
+                ))}  
                </div>
                <h5 className="minimize-title"><img src="img/minimize.png" alt="img"/> See more channels</h5>
             </div>
@@ -215,14 +218,14 @@ return (
          <div className="row">
             <div className="cover-wrapper">
                <div id="radio-channels" className="owl-carousel text-center mt-1">
-               {allusers.map((alluser,index)=>(
+               {allfm.map((fm,index)=>(
                   <div className="item">
                      <div className="client-inners">
-                        <a href= {alluser.album_url}>
-                        <img src={alluser.image} alt="img"/></a>
-                        <a href= {alluser.album_url}>
+                        <a href= {fm.album_url}>
+                        <img src={fm.image} alt="img"/></a>
+                        <a href= {fm.album_url}>
                         <h6>
-                            {alluser.album}
+                            {fm.album}
                         </h6>
                         </a>
                         <p><i className="fa fa-star"></i> 3k  &nbsp; <i className="fa fa-circle dot-red"></i> <samp className="circle-title">100K</samp></p>
