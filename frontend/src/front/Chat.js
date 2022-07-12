@@ -4,7 +4,36 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Modal from "react-bootstrap/Modal";
+import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import http from '../http'
 export const Chat = () => {
+   const navigate = useNavigate();
+   
+   const[allusers, setUsers] = useState([]);
+      useEffect(()=>{
+         fetchAllUsers();
+      },[]);
+
+   const fetchAllUsers = () => {
+      const tokenString = sessionStorage.getItem('token');
+      const userToken = JSON.stringify(tokenString);
+      //console.log(userToken);
+      if(tokenString === null){
+         alert('Please Login First!')
+         navigate('/Login');
+      }
+      const userString = sessionStorage.getItem('user');
+      const user_details = JSON.parse(userString);
+      //console.log(user_details.id);
+      const userID = user_details.id;
+
+      http.get('/chatusers/'+userID).then(res=>{
+          setUsers(res.data);
+        console.log(res.data);
+      })
+     }
+
 const [isOpen, setIsOpen] = React.useState(false);
 const showModal = () => { setIsOpen(true);};
 const hideModal = () => { setIsOpen(false);};
@@ -13,9 +42,9 @@ return (
 <section className="masthead">
    <div className="container">      
       <div className="row">
-      <div class="col-12 mt-4" className="text-center">
+      {/* <div class="col-12 mt-4" className="text-center">
          <Link to="/PeopleConnect" className="text-center"> People Connect</Link>
-         </div>
+         </div> */}
          <div className="col-md-12 mt-2">
             <div className="chat-tabs">
                <Tabs>
@@ -29,7 +58,29 @@ return (
                   </TabList>
                   <TabPanel>
                      <div className="chat-section mt-4">
+                      {allusers.map((alluser,index)=>(  
                         <div className="chat-list">
+                           <div className="row">
+                              <div className="col-10">
+                                 <Link to={{ pathname: "/ChatPage/" + alluser.id }}>
+                                 <img src="img/euronews.png" className="chat-user-img" alt="avatar"/>                                 
+                                 <div className="chat-user-des">
+                                    <h6>{alluser.name}</h6>
+                                    <small className="font-12">Last seen: 2 hours ago</small>
+                                 </div>
+                                 </Link>
+                              </div>
+                              <div className="col-1">
+                                 <Link to={{ pathname: "/ChatPage/" + alluser.id }}>
+                                 <div className="chat-number-count">
+                                    <p>12</p>
+                                 </div>
+                                 </Link>
+                              </div>
+                           </div>
+                        </div>
+                      ))} 
+                        {/* <div className="chat-list">
                            <div className="row">
                               <div className="col-10">
                                  <Link to="/ChatPage">
@@ -41,11 +92,12 @@ return (
                                  </Link>
                               </div>
                               <div className="col-1">
+                                  
                                  <Link to="/ChatPage">
                                  <div className="chat-number-count">
                                     <p>12</p>
                                  </div>
-                                 </Link>
+                                 </Link> 
                               </div>
                            </div>
                         </div>
@@ -61,33 +113,12 @@ return (
                                  </Link>
                               </div>
                               <div className="col-1">
-                                 {/* 
+                                 
                                  <Link to="/ChatPage">
                                  <div className="chat-number-count">
                                     <p>12</p>
                                  </div>
-                                 </Link> */}
-                              </div>
-                           </div>
-                        </div>
-                        <div className="chat-list">
-                           <div className="row">
-                              <div className="col-10">
-                                 <Link to="/ChatPage">
-                                 <img src="img/euronews.png" className="chat-user-img" alt="avatar"/>                                 
-                                 <div className="chat-user-des">
-                                    <h6>Euro News</h6>
-                                    <small className="font-12">Last seen: 2 hours ago</small>
-                                 </div>
-                                 </Link>
-                              </div>
-                              <div className="col-1">
-                                 {/* 
-                                 <Link to="/ChatPage">
-                                 <div className="chat-number-count">
-                                    <p>12</p>
-                                 </div>
-                                 </Link> */}
+                                 </Link> 
                               </div>
                            </div>
                         </div>
@@ -143,12 +174,12 @@ return (
                                  </Link>
                               </div>
                               <div className="col-1">
-                                 {/* 
+                                 
                                  <Link to="/ChatPage">
                                  <div className="chat-number-count">
                                     <p>12</p>
                                  </div>
-                                 </Link> */}
+                                 </Link> 
                               </div>
                            </div>
                         </div>
@@ -171,7 +202,7 @@ return (
                                  </Link>
                               </div>
                            </div>
-                        </div>
+                        </div> */}
                      </div>
                   </TabPanel>
                   <TabPanel>

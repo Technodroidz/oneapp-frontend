@@ -11,7 +11,7 @@ import {RoomPage} from './front/RoomPage';
 import {MessagePage} from './front/MessagePage';
 import {AudioRoom} from './front/AudioRoom';
 import {Profile} from './front/Profile';
-import {Chat} from './front/Chat';
+import {Chat} from './front/Chat';  
 import {ChatPage} from './front/ChatPage';
 import {AudioCallPage} from './front/AudioCallPage';
 import {VideoCallPage} from './front/VideoCallPage';
@@ -49,7 +49,7 @@ function App() {
           <Route path="/AudioRoom" element={<AudioRoom />}></Route> 
           <Route path="/Profile" element={<Profile />}></Route> 
           <Route path="/Chat" element={<Chat />}></Route>
-          <Route path="/ChatPage" element={<ChatPage />}></Route>
+          <Route path="/ChatPage/:id" element={<ChatPage />}></Route>
           <Route path="/AudioCallPage" element={<AudioCallPage />}></Route>
           <Route path="/VideoCallPage" element={<VideoCallPage />}></Route>
           <Route path="/GroupVideoCallPage" element={<GroupVideoCallPage />}></Route>

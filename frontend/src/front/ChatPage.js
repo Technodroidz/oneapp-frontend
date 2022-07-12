@@ -3,8 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import Modal from "react-bootstrap/Modal";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import http from '../http'
 
-export const ChatPage = () => {   
+export const ChatPage = () => {  
 const [isOpen, setIsOpen] = React.useState(false);
 const showModal = () => { setIsOpen(true);};
 const hideModal = () => { setIsOpen(false);};
@@ -20,6 +23,34 @@ const hideModal4 = () => { setIsOpen4(false);};
 const [isOpen5, setIsOpen5] = React.useState(false);
 const showModal5 = () => { setIsOpen5(true);};
 const hideModal5 = () => { setIsOpen5(false);};
+
+      const navigate = useNavigate();
+      const {id} = useParams(); 
+      console.log(id);
+
+      const[allusers, setUsers] = useState([]);
+         useEffect(()=>{
+            fetchAllUsers();
+         },[]);
+
+      const fetchAllUsers = () => {
+         const tokenString = sessionStorage.getItem('token');
+         const userToken = JSON.stringify(tokenString);
+         //console.log(userToken);
+         if(tokenString === null){
+            alert('Please Login First!')
+            navigate('/Login');
+         }
+         const userString = sessionStorage.getItem('user');
+         const user_details = JSON.parse(userString);
+         //console.log(user_details.id);
+         const userID = user_details.id;
+
+      http.get('/userdetails/'+id).then(res=>{
+         // setUsers(res.data);
+          console.log(res.data);
+      })
+     }
 return (
 <>
 <div className="masthead">
