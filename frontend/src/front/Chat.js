@@ -20,7 +20,7 @@ export const Chat = () => {
       const userToken = JSON.stringify(tokenString);
       //console.log(userToken);
       if(tokenString === null){
-         alert('Please Login First!')
+         alert('Please Login!')
          navigate('/Login');
       }
       const userString = sessionStorage.getItem('user');
@@ -29,8 +29,12 @@ export const Chat = () => {
       const userID = user_details.id;
 
       http.get('/chatusers/'+userID).then(res=>{
-          setUsers(res.data);
-        console.log(res.data);
+        try{
+            setUsers(res.data);
+         //console.log(res.data);
+         }catch(e){
+            console.log('error', e);        
+         }
       })
      }
 

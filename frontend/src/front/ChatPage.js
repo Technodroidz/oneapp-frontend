@@ -5,6 +5,8 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import AgoraRTC from "agora-rtc-sdk";
+import { AGORA_APP_ID } from "../agora.config";
 import http from '../http'
 
 export const ChatPage = () => {  
@@ -26,19 +28,20 @@ const hideModal5 = () => { setIsOpen5(false);};
 
       const navigate = useNavigate();
       const {id} = useParams(); 
-      console.log(id);
+      //console.log(id);
 
       const[allusers, setUsers] = useState([]);
          useEffect(()=>{
             fetchAllUsers();
          },[]);
 
+
       const fetchAllUsers = () => {
          const tokenString = sessionStorage.getItem('token');
          const userToken = JSON.stringify(tokenString);
          //console.log(userToken);
          if(tokenString === null){
-            alert('Please Login First!')
+            alert('Please Login!')
             navigate('/Login');
          }
          const userString = sessionStorage.getItem('user');
@@ -47,9 +50,23 @@ const hideModal5 = () => { setIsOpen5(false);};
          const userID = user_details.id;
 
       http.get('/userdetails/'+id).then(res=>{
-         // setUsers(res.data);
-          console.log(res.data);
+        try{
+            // setUsers(res.data);
+           console.log(res.data);
+         }catch(e){
+           console.log('error', e);        
+         }
+
       })
+
+     }
+
+     const createRoom = () => {
+      const rtc = [];
+       rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
+       rtc.client.on("user-published", async (user, mediaType) => {
+         console.log('published');
+       })
      }
 return (
 <>
@@ -67,7 +84,7 @@ return (
                               <img src="img/euronews.png" alt="avatar"/>
                               </Link>
                               <div className="chat-about">
-                                 <h6 class="m-b-0">Euro News</h6>
+                                 <h6 class="m-b-0">Euro News</h6> 
                                  <small className="font-12">Last seen: 2 hours ago</small>
                               </div>
                            </div>
@@ -76,7 +93,7 @@ return (
                                  <Link to="/AudioCallPage">
                                  <img className="chat-img" src="img/phone-call.png" alt=""/></Link>
                                  <Link to="/VideoCallPage">
-                                 <img className="chat-img" src="img/video.png" alt=""/></Link>
+                                 <img className="chat-img" src="img/video.png" onClick={createRoom} alt=""/></Link>
                                  <div className="dropdown">
                                     <button type="button" className="bb-n" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img className="chat-img" src="img/more-vertical.png" alt="euronews"/>
