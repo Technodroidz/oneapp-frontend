@@ -30,7 +30,7 @@ const hideModal5 = () => { setIsOpen5(false);};
       const {id} = useParams(); 
       //console.log(id);
 
-      const[allusers, setUsers] = useState([]);
+      const[allchatusers, setChatusers] = useState([]);
          useEffect(()=>{
             fetchAllUsers();
          },[]);
@@ -38,21 +38,21 @@ const hideModal5 = () => { setIsOpen5(false);};
 
       const fetchAllUsers = () => {
          const tokenString = sessionStorage.getItem('token');
-         const userToken = JSON.stringify(tokenString);
+        // const userToken = JSON.stringify(tokenString);
          //console.log(userToken);
          if(tokenString === null){
             alert('Please Login!')
             navigate('/Login');
          }
-         const userString = sessionStorage.getItem('user');
-         const user_details = JSON.parse(userString);
+         //const userString = sessionStorage.getItem('user');
+        // const user_details = JSON.parse(userString);
          //console.log(user_details.id);
-         const userID = user_details.id;
+        // const userID = user_details.id;
 
       http.get('/userdetails/'+id).then(res=>{
         try{
-            // setUsers(res.data);
-           console.log(res.data);
+         setChatusers(res.data);
+           //console.log(res.data);
          }catch(e){
            console.log('error', e);        
          }
@@ -77,23 +77,27 @@ return (
             <div className="chat-section mt-2">
                <div className="card chat-app">
                   <div className="chat">
+                  {allchatusers.map((allchat,index)=>(
                      <div className="chat-header1 clearfix">
+                      
                         <div className="row">
+                       
                            <div className="col-8 d-flex">
                               <Link to="/">
                               <img src="img/euronews.png" alt="avatar"/>
                               </Link>
                               <div className="chat-about">
-                                 <h6 class="m-b-0">Euro News</h6> 
+                                 <h6 class="m-b-0">{allchat.name}</h6> 
                                  <small className="font-12">Last seen: 2 hours ago</small>
                               </div>
                            </div>
+                           
                            <div className="col-4 col-lg-2">
                               <div className="d-flex ml--5">
-                                 <Link to="/AudioCallPage">
+                                 <Link to={{ pathname: "/AudioCallPage/" + allchat.id }}>
                                  <img className="chat-img" src="img/phone-call.png" alt=""/></Link>
-                                 <Link to="/VideoCallPage">
-                                 <img className="chat-img" src="img/video.png" onClick={createRoom} alt=""/></Link>
+                                 <Link to={{ pathname: "/VideoCallPage/" + allchat.id }}>
+                                 <img className="chat-img" src="img/video.png" alt=""/></Link>
                                  <div className="dropdown">
                                     <button type="button" className="bb-n" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img className="chat-img" src="img/more-vertical.png" alt="euronews"/>
@@ -276,6 +280,7 @@ return (
                            </div>
                         </div>
                      </div>
+                     ))}
                      <div className="chat-history">
                         <ul className="m-b-0">
                            <li className="clearfix">

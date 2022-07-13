@@ -2,7 +2,48 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.min.js';
-export const VideoCallPage = () => {    
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import AgoraRTC from "agora-rtc-sdk";
+import { AGORA_APP_ID } from "../agora.config";
+import http from '../http'
+export const VideoCallPage = () => {  
+     const navigate = useNavigate();
+     const {id} = useParams(); 
+     useEffect(()=>{
+
+         const rtc = [];
+         rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
+         rtc.client.on("user-published", async (user, mediaType) => {
+         console.log('published');
+         })
+      }, []) 
+      
+      const[allchatusers, setChatusers] = useState([]);
+         useEffect(()=>{
+            fetchAllUsers();
+         },[]);
+
+      const fetchAllUsers = () => {
+            const tokenString = sessionStorage.getItem('token');
+           // const userToken = JSON.stringify(tokenString);
+            //console.log(userToken);
+            if(tokenString === null){
+               alert('Please Login!')
+               navigate('/Login');
+            }
+   
+         http.get('/userdetails/'+id).then(res=>{
+           try{
+            //setChatusers(res.data);
+              console.log(res.data);
+            }catch(e){
+              console.log('error', e);        
+            }
+   
+         })
+   
+        }   
 return (
 <>
 <section>

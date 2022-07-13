@@ -50,8 +50,8 @@ function App() {
           <Route path="/Profile" element={<Profile />}></Route> 
           <Route path="/Chat" element={<Chat />}></Route>
           <Route path="/ChatPage/:id" element={<ChatPage />}></Route>
-          <Route path="/AudioCallPage" element={<AudioCallPage />}></Route>
-          <Route path="/VideoCallPage" element={<VideoCallPage />}></Route>
+          <Route path="/AudioCallPage/:id" element={<AudioCallPage />}></Route>
+          <Route path="/VideoCallPage/:id" element={<VideoCallPage />}></Route>
           <Route path="/GroupVideoCallPage" element={<GroupVideoCallPage />}></Route>
           <Route path="/CallPage" element={<CallPage />}></Route>
           <Route path="/About" element={<About />}></Route>
