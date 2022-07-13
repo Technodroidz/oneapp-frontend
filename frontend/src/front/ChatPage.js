@@ -84,7 +84,7 @@ return (
                        
                            <div className="col-8 d-flex">
                               <Link to="/">
-                              <img src="img/euronews.png" alt="avatar"/>
+                              <img src="/img/euronews.png" alt="avatar"/>
                               </Link>
                               <div className="chat-about">
                                  <h6 class="m-b-0">{allchat.name}</h6> 
@@ -95,12 +95,12 @@ return (
                            <div className="col-4 col-lg-2">
                               <div className="d-flex ml--5">
                                  <Link to={{ pathname: "/AudioCallPage/" + allchat.id }}>
-                                 <img className="chat-img" src="img/phone-call.png" alt=""/></Link>
+                                 <img className="chat-img" src="/img/phone-call.png" alt=""/></Link>
                                  <Link to={{ pathname: "/VideoCallPage/" + allchat.id }}>
-                                 <img className="chat-img" src="img/video.png" alt=""/></Link>
+                                 <img className="chat-img" src="/img/video.png" alt=""/></Link>
                                  <div className="dropdown">
                                     <button type="button" className="bb-n" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img className="chat-img" src="img/more-vertical.png" alt="euronews"/>
+                                    <img className="chat-img" src="/img/more-vertical.png" alt="euronews"/>
                                     </button>
                                     <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                                        <div className="row">

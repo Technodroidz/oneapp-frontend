@@ -10,14 +10,6 @@ import http from '../http'
 export const VideoCallPage = () => {  
      const navigate = useNavigate();
      const {id} = useParams(); 
-     useEffect(()=>{
-
-         const rtc = [];
-         rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
-         rtc.client.on("user-published", async (user, mediaType) => {
-         console.log('published');
-         })
-      }, []) 
       
       const[allchatusers, setChatusers] = useState([]);
          useEffect(()=>{
@@ -37,13 +29,54 @@ export const VideoCallPage = () => {
            try{
             //setChatusers(res.data);
               console.log(res.data);
+              const rtc = [];
+              const appId = "f31feed969ef438b8f501a27c3b73ce6";
+              const name = "DemoChannel";
+             // const token = "123456";
+               rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
+                // Create an audio track from the audio captured by a microphone
+               rtc.localAudioTrack =  AgoraRTC.createMicrophoneAudioTrack();
+               // Create a video track from the video captured by a camera
+               rtc.localVideoTrack =  AgoraRTC.createCameraVideoTrack();
+
+               rtc.localVideoTrack.play("local-stream");
+               
+               rtc.client.on("user-published", async (user, mediaType) => {
+                  rtc.client.subscribe(user);
+                  console.log("subscribe success");
+                  // console.log(user);
+          
+                  if (mediaType === "video" || mediaType === "all") {
+                    const remoteVideoTrack = user.videoTrack;
+                    console.log(remoteVideoTrack);
+          
+                    // Dynamically create a container in the form of a DIV element for playing the remote video track.
+                  //   const PlayerContainer = React.createElement("div", {
+                  //     id: user.uid,
+                  //     className: "stream",
+                  //   });
+                  //   ReactDOM.render(
+                  //     PlayerContainer,
+                  //     document.getElementById("remote-stream")
+                  //   );
+          
+                  //   user.videoTrack.play(`${user.uid}`);
+                  }
+          
+                  if (mediaType === "audio" || mediaType === "all") {
+                    // Get `RemoteAudioTrack` in the `user` object.
+                    const remoteAudioTrack = user.audioTrack;
+                    // Play the audio track. Do not need to pass any DOM element
+                    remoteAudioTrack.play();
+                  }
+                });
             }catch(e){
               console.log('error', e);        
             }
    
          })
    
-        }   
+        } 
 return (
 <>
 <section>
@@ -53,10 +86,10 @@ return (
                   <div className="clearfix">
                      <div className="col-12">
                         <div className="video-call">
-                           <img src="img/user1.jpg" className="img-fluid" alt="img"/>
+                           <img src="/img/user1.jpg" className="img-fluid" alt="img"/>
                         </div>
                         <div class="video-sm">
-                           <img src="img/rita-img.jpg" className="rounded img-fluid" alt="img"/>
+                           <img src="/img/rita-img.jpg" className="rounded img-fluid" alt="img"/>
                         </div>
                      </div>
                   </div>

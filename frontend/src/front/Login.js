@@ -34,7 +34,7 @@ return (
                </h1>
                <p className="text-center text-gry mb-4 font-13">Explore, Watch, Talk, <br></br>Share, Meet, Call, Protect.</p>
                <h6 className="mt-3 text-center text-gry font-13">Log in via social media accounts</h6>
-               <div className="text-center">
+               <div className="text-center d-flex">
                   <div className="d-sm-block img-login">
                      <img src="img/fb-login.png" alt="qus"/>
                   </div>

@@ -10,16 +10,16 @@ return (
       <div className="d-flex">
          <div className="d-sm-block ms-1">
             <Link to="/">
-            <img  className="logo" src="img/logo.png" alt="logo"/></Link>
+            <img  className="logo" src="/img/logo.png" alt="logo"/></Link>
          </div>
          <div className="d-sm-block ms-1 img-header1">
-         <Link to="/"> <img src="img/rad.png" alt="tv" title="emergency"/></Link>
+         <Link to="/"> <img src="/img/rad.png" alt="tv" title="emergency"/></Link>
          </div>
       </div>
       <div className="d-flex">
          <div className="dropdown d-sm-block ms-1">
             <button type="button" className=" img-header header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="img/information.png" alt="info"/>
+            <img src="/img/information.png" alt="info"/>
             </button>
             <div className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-notifications-dropdown">
                <div className="row">
@@ -27,7 +27,7 @@ return (
                      <Link to="/About" className="text-reset notification-item">
                      <div className="d-flex align-items-baseline">
                         <div className="avatar-xs me-1">
-                           <img src="img/user-icon.png" alt="About" title="About"/>
+                           <img src="/img/user-icon.png" alt="About" title="About"/>
                         </div>
                         <div className="flex-1">
                            <h6 className="mt-0 mb-1 font-12">About</h6>
@@ -37,7 +37,7 @@ return (
                      <Link to="/Contact" className="text-reset notification-item">
                      <div className="d-flex align-items-baseline">
                         <div className="avatar-xs me-1">
-                           <img src="img/phone-call.png" alt="Contact" title="About"/>
+                           <img src="/img/phone-call.png" alt="Contact" title="About"/>
                         </div>
                         <div className="flex-1">
                            <h6 className="mt-0 mb-1 font-12"> Contact</h6>
@@ -47,7 +47,7 @@ return (
                      <Link to="/PrivacyPolicy" className="text-reset notification-item">
                      <div className="d-flex align-items-baseline">
                         <div className="avatar-xs me-1">
-                           <img src="img/privacy-icon.png" alt="Privacy Policy"/>
+                           <img src="/img/privacy-icon.png" alt="Privacy Policy"/>
                         </div>
                         <div className="flex-1">
                            <h6 className="mt-0 mb-1 font-12">Privacy Policy</h6>
@@ -59,7 +59,7 @@ return (
                      <Link to="/TermsConditions" className="text-reset notification-item">
                      <div className="d-flex align-items-baseline">
                         <div className="avatar-xs me-1">
-                           <img src="img/terms-icon.png" alt="Terms and Conditions"/>
+                           <img src="/img/terms-icon.png" alt="Terms and Conditions"/>
                         </div>
                         <div className="flex-1">
                            <h6 className="mt-0 mb-1 font-12">Terms and Conditions</h6>
@@ -69,7 +69,7 @@ return (
                      <Link to="/Help" className="text-reset notification-item">
                      <div className="d-flex align-items-baseline">
                         <div className="avatar-xs me-1">
-                           <img src="img/help-icon.png" alt="Help"/>
+                           <img src="/img/help-icon.png" alt="Help"/>
                         </div>
                         <div className="flex-1">
                            <h6 className="mt-0 mb-1 font-12">Help</h6>
@@ -79,7 +79,7 @@ return (
                      <Link to="/Settings" className="text-reset notification-item">
                      <div className="d-flex align-items-baseline">
                         <div className="avatar-xs me-1">
-                           <img src="img/set.png" alt="Settings"/>
+                           <img src="/img/set.png" alt="Settings"/>
                         </div>
                         <div className="flex-1">
                            <h6 className="mt-0 mb-1 font-12">Settings</h6>
@@ -92,25 +92,25 @@ return (
          </div>
          <div className="d-sm-block ms-1 img-header">
             <Link to="/Login">
-            <img src="img/game.png" alt="qus"/>
+            <img src="/img/game.png" alt="qus"/>
             </Link> 
          </div>
          <div className="d-sm-block ms-1 img-header">
             <Link to="/ScheduleEvent">
-            <img src="img/cal.png" alt="ScheduleEvent"/>
+            <img src="/img/cal.png" alt="ScheduleEvent"/>
             </Link> 
          </div>
          <div className="d-sm-block ms-1 img-header">
             <Link to="/CallPage">
-            <img src="img/phone-call-1.png" alt="CallPage"/></Link> 
+            <img src="/img/phone-call-1.png" alt="CallPage"/></Link> 
          </div>
          <div className="d-sm-block ms-1 img-header">
             <Link to="/Chat">
-            <img src="img/mass.png" alt="chat"/></Link> 
+            <img src="/img/mass.png" alt="chat"/></Link> 
          </div>
          <div className="d-sm-block ms-1 img-profile-header">
             <Link to="/Profile">
-            <img src="img/user.png" alt="user"/></Link> 
+            <img src="/img/user.png" alt="user"/></Link> 
          </div>
       </div>
    </div>
