@@ -11,10 +11,59 @@ export const VideoCallPage = () => {
      const navigate = useNavigate();
      const {id} = useParams(); 
       
+      const[allusers, setUsers] = useState([]);
+      const[allstart, setStart] = useState([]);
       const[allchatusers, setChatusers] = useState([]);
          useEffect(()=>{
             fetchAllUsers();
          },[]);
+
+         const rtc = [];
+
+         const initClientEvents = () => {
+            rtc.current.client.on("user-published", async (user, mediaType) => {
+              // New User Enters
+              await rtc.current.client.subscribe(user, mediaType);
+              if (mediaType === "video") {
+                const remoteVideoTrack = user.videoTrack;
+                setUsers((prevUsers) => {
+                  return [...prevUsers, { uid: user.uid, audio: user.hasAudio, video: user.hasVideo, client: false, videoTrack: remoteVideoTrack }]
+                })
+              }
+        
+              if (mediaType === "audio") {
+                const remoteAudioTrack = user.audioTrack;
+                remoteAudioTrack.play();
+                setUsers((prevUsers) => {
+                  return (prevUsers.map((User) => {
+                    if (User.uid === user.uid) {
+                      return { ...User, audio: user.hasAudio }
+                    }
+                    return User
+                  }))
+                })
+              }
+            });
+        
+            rtc.current.client.on("user-unpublished", (user, type) => {
+              //User Leaves
+              if (type === 'audio') {
+                setUsers(prevUsers => {
+                  return (prevUsers.map((User) => {
+                    if (User.uid === user.uid) {
+                      return { ...User, audio: !User.audio }
+                    }
+                    return User
+                  }))
+                })
+              }
+              if (type === 'video') {
+                setUsers((prevUsers) => {
+                  return prevUsers.filter(User => User.uid !== user.uid)
+                })
+              }
+            });
+          }   
 
       const fetchAllUsers = () => {
             const tokenString = sessionStorage.getItem('token');
@@ -29,47 +78,30 @@ export const VideoCallPage = () => {
            try{
             //setChatusers(res.data);
               console.log(res.data);
-              const rtc = [];
-              const appId = "f31feed969ef438b8f501a27c3b73ce6";
-              const name = "DemoChannel";
-             // const token = "123456";
-               rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
-                // Create an audio track from the audio captured by a microphone
-               rtc.localAudioTrack =  AgoraRTC.createMicrophoneAudioTrack();
-               // Create a video track from the video captured by a camera
-               rtc.localVideoTrack =  AgoraRTC.createCameraVideoTrack();
-
-               rtc.localVideoTrack.play("local-stream");
+              let options = {
+               'appId' : 'f31feed969ef438b8f501a27c3b73ce6',
+               'name' : 'DemoChannel',
+               'token' : '006f31feed969ef438b8f501a27c3b73ce6IAAgb7sjhILLZWkuWrUpR1q+pbtDzale2h9LnnqobnUAPvSoF24JSNIaIgCUcgEAly7RYgQAAQAn689iAwAn689iAgAn689iBAAn689i'
+             };
+             
+             let init = async (name) => {
+               rtc.current.client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+               initClientEvents()
+               const uid = await rtc.current.client.join(options.appId, name, options.token, null);
+               console.log(uid);
+               // Create an audio track from the audio sampled by a microphone.
+               rtc.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+               // Create a video track from the video captured by a camera.
+               rtc.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+               //Adding a User to the Users State
+               setUsers((prevUsers) => {
+               return [...prevUsers, { uid: uid, audio: true, video: true, client: true, videoTrack: rtc.current.localVideoTrack }]
+               })
+               //Publishing your Streams
+               await rtc.current.client.publish([rtc.current.localAudioTrack, rtc.current.localVideoTrack]);
+               setStart(true)
+            }
                
-               rtc.client.on("user-published", async (user, mediaType) => {
-                  rtc.client.subscribe(user);
-                  console.log("subscribe success");
-                  // console.log(user);
-          
-                  if (mediaType === "video" || mediaType === "all") {
-                    const remoteVideoTrack = user.videoTrack;
-                    console.log(remoteVideoTrack);
-          
-                    // Dynamically create a container in the form of a DIV element for playing the remote video track.
-                  //   const PlayerContainer = React.createElement("div", {
-                  //     id: user.uid,
-                  //     className: "stream",
-                  //   });
-                  //   ReactDOM.render(
-                  //     PlayerContainer,
-                  //     document.getElementById("remote-stream")
-                  //   );
-          
-                  //   user.videoTrack.play(`${user.uid}`);
-                  }
-          
-                  if (mediaType === "audio" || mediaType === "all") {
-                    // Get `RemoteAudioTrack` in the `user` object.
-                    const remoteAudioTrack = user.audioTrack;
-                    // Play the audio track. Do not need to pass any DOM element
-                    remoteAudioTrack.play();
-                  }
-                });
             }catch(e){
               console.log('error', e);        
             }

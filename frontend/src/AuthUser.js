@@ -31,7 +31,7 @@ export default function AuthUser(){
     }
 
     const http = axios.create({
-        baseURL:"http://localhost:8000/api",
+        baseURL:"http://younggeeks.co.in/oneapp_backend/api",
         headers:{
            "Content-type":"application/json"
         }
