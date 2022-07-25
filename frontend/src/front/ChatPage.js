@@ -60,14 +60,6 @@ const hideModal5 = () => { setIsOpen5(false);};
       })
 
      }
-
-     const createRoom = () => {
-      const rtc = [];
-       rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
-       rtc.client.on("user-published", async (user, mediaType) => {
-         console.log('published');
-       })
-     }
 return (
 <>
 <div className="masthead">

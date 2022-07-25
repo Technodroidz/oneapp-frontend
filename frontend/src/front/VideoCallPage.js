@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AgoraRTC from "agora-rtc-sdk";
+import { AgoraVideoPlayer, createClient, createMicrophoneAndCameraTracks, ClientConfig,
+  IAgoraRTCRemoteUser, ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
 import { AGORA_APP_ID } from "../agora.config";
 import http from '../http'
 export const VideoCallPage = () => {  
@@ -18,52 +19,13 @@ export const VideoCallPage = () => {
             fetchAllUsers();
          },[]);
 
-         const rtc = [];
-
-         const initClientEvents = () => {
-            rtc.current.client.on("user-published", async (user, mediaType) => {
-              // New User Enters
-              await rtc.current.client.subscribe(user, mediaType);
-              if (mediaType === "video") {
-                const remoteVideoTrack = user.videoTrack;
-                setUsers((prevUsers) => {
-                  return [...prevUsers, { uid: user.uid, audio: user.hasAudio, video: user.hasVideo, client: false, videoTrack: remoteVideoTrack }]
-                })
-              }
-        
-              if (mediaType === "audio") {
-                const remoteAudioTrack = user.audioTrack;
-                remoteAudioTrack.play();
-                setUsers((prevUsers) => {
-                  return (prevUsers.map((User) => {
-                    if (User.uid === user.uid) {
-                      return { ...User, audio: user.hasAudio }
-                    }
-                    return User
-                  }))
-                })
-              }
-            });
-        
-            rtc.current.client.on("user-unpublished", (user, type) => {
-              //User Leaves
-              if (type === 'audio') {
-                setUsers(prevUsers => {
-                  return (prevUsers.map((User) => {
-                    if (User.uid === user.uid) {
-                      return { ...User, audio: !User.audio }
-                    }
-                    return User
-                  }))
-                })
-              }
-              if (type === 'video') {
-                setUsers((prevUsers) => {
-                  return prevUsers.filter(User => User.uid !== user.uid)
-                })
-              }
-            });
-          }   
+      const config = {mode: "rtc", codec: "vp8"}  
+      const useClient = createClient(config);
+      const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
+     // console.log(useMicrophoneAndCameraTracks); 
+      const client = useClient();
+      const { ready, tracks } = useMicrophoneAndCameraTracks();
+     
 
       const fetchAllUsers = () => {
             const tokenString = sessionStorage.getItem('token');
@@ -78,29 +40,9 @@ export const VideoCallPage = () => {
            try{
             //setChatusers(res.data);
               console.log(res.data);
-              let options = {
-               'appId' : 'f31feed969ef438b8f501a27c3b73ce6',
-               'name' : 'DemoChannel',
-               'token' : '006f31feed969ef438b8f501a27c3b73ce6IAAgb7sjhILLZWkuWrUpR1q+pbtDzale2h9LnnqobnUAPvSoF24JSNIaIgCUcgEAly7RYgQAAQAn689iAwAn689iAgAn689iBAAn689i'
-             };
-             
-             let init = async (name) => {
-               rtc.current.client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-               initClientEvents()
-               const uid = await rtc.current.client.join(options.appId, name, options.token, null);
-               console.log(uid);
-               // Create an audio track from the audio sampled by a microphone.
-               rtc.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-               // Create a video track from the video captured by a camera.
-               rtc.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-               //Adding a User to the Users State
-               setUsers((prevUsers) => {
-               return [...prevUsers, { uid: uid, audio: true, video: true, client: true, videoTrack: rtc.current.localVideoTrack }]
-               })
-               //Publishing your Streams
-               await rtc.current.client.publish([rtc.current.localAudioTrack, rtc.current.localVideoTrack]);
-               setStart(true)
-            }
+              
+              console.log(tracks[1]);
+              
                
             }catch(e){
               console.log('error', e);        
