@@ -26,16 +26,17 @@ export const Chat = () => {
       const userString = sessionStorage.getItem('user');
       const user_details = JSON.parse(userString);
       //console.log(user_details.id);
-      const userID = user_details.id;
-
-      http.get('/chatusers/'+userID).then(res=>{
-        try{
-            setUsers(res.data);
-         //console.log(res.data);
-         }catch(e){
-            console.log('error', e);        
-         }
-      })
+      if(user_details !== null){
+         const userID = user_details.id;
+         http.get('/chatusers/'+userID).then(res=>{
+            try{
+                setUsers(res.data);
+             //console.log(res.data);
+             }catch(e){
+                console.log('error', e);        
+             }
+          })
+      }
      }
 
 const [isOpen, setIsOpen] = React.useState(false);

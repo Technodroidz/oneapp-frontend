@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AgoraVideoPlayer, createClient, createMicrophoneAndCameraTracks, ClientConfig,
   IAgoraRTCRemoteUser, ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
 import { AGORA_APP_ID } from "../agora.config";
+import ReactPlayer from 'react-player';
 import http from '../http'
 export const VideoCallPage = () => {  
      const navigate = useNavigate();
@@ -60,10 +61,10 @@ return (
                   <div className="clearfix">
                      <div className="col-12">
                         <div className="video-call">
-                           <img src="/img/user1.jpg" className="img-fluid" alt="img"/>
+                        <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width="100%" height="100%" />
                         </div>
                         <div class="video-sm">
-                           <img src="/img/rita-img.jpg" className="rounded img-fluid" alt="img"/>
+                        <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width={100} height="100" />
                         </div>
                      </div>
                   </div>
