@@ -3149,8 +3149,9 @@ li.post-comment .comet-avatar {
 }
 
 .videocall-btn-section {
-	bottom: 1px;
-	position: absolute;
+	/* bottom: 1px;
+	position: absolute; */
+	background-color: #000;
 }
 
 .call-btn-section i {

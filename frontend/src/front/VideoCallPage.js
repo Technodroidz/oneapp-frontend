@@ -14,10 +14,14 @@ export const VideoCallPage = () => {
      const {id} = useParams(); 
       
       const[allusers, setUsers] = useState([]);
-      const[allstart, setStart] = useState([]);
-      const[allchatusers, setChatusers] = useState([]);
+      const[allvideos, setVideos] = useState([]);
+     // const[allchatusers, setChatusers] = useState([]);
          useEffect(()=>{
             fetchAllUsers();
+         },[]);
+
+         useEffect(()=>{
+            fetchAgoraToken();
          },[]);
 
       const config = {mode: "rtc", codec: "vp8"}  
@@ -41,17 +45,29 @@ export const VideoCallPage = () => {
            try{
             //setChatusers(res.data);
               console.log(res.data);
-              
-              console.log(tracks[1]);
-              
-               
             }catch(e){
               console.log('error', e);        
             }
-   
          })
-   
-        } 
+        }
+        
+      const fetchAgoraToken = () => {
+         const userString = sessionStorage.getItem('user');
+         const user_details = JSON.parse(userString);
+         //console.log(user_details.id);
+         if(user_details !== null){
+            const username = user_details.name;
+            const channelName = 'DemoChannel';
+            http.post('/agora/token',{channelName:channelName,user:username}).then(res=>{
+               try{
+                  console.log(res.data);
+                  console.log(tracks);
+               }catch(e){
+                  console.log('error', e);        
+               }
+            })
+         }   
+      }  
 return (
 <>
 <section>
