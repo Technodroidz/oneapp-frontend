@@ -15,6 +15,7 @@ import {Chat} from './front/Chat';
 import {ChatPage} from './front/ChatPage';
 import {AudioCallPage} from './front/AudioCallPage';
 import {VideoCallPage} from './front/VideoCallPage';
+import {VideoCallPage2} from './front/VideoCallPage2';
 import {GroupVideoCallPage} from './front/GroupVideoCallPage';
 import {CallPage} from './front/CallPage';
 import {About} from './front/About';
@@ -52,6 +53,7 @@ function App() {
           <Route path="/ChatPage/:id" element={<ChatPage />}></Route>
           <Route path="/AudioCallPage/:id" element={<AudioCallPage />}></Route>
           <Route path="/VideoCallPage/:id" element={<VideoCallPage />}></Route>
+          <Route path="/VideoCallPage2/:id" element={<VideoCallPage2 />}></Route>
           <Route path="/GroupVideoCallPage" element={<GroupVideoCallPage />}></Route>
           <Route path="/CallPage" element={<CallPage />}></Route>
           <Route path="/About" element={<About />}></Route>

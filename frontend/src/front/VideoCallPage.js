@@ -15,7 +15,7 @@ export const VideoCallPage = () => {
       
       const[allusers, setUsers] = useState([]);
       const[allvideos, setVideos] = useState([]);
-     // const[allchatusers, setChatusers] = useState([]);
+      const[allstart, setStart] = useState([]);
          useEffect(()=>{
             fetchAllUsers();
          },[]);
@@ -26,12 +26,15 @@ export const VideoCallPage = () => {
 
       const config = {mode: "rtc", codec: "vp8"}  
       const useClient = createClient(config);
-      const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks();
+      const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks({
+         
+      });
      // console.log(useMicrophoneAndCameraTracks); 
       const client = useClient();
-      const { ready, tracks } = useMicrophoneAndCameraTracks();
+      const { ready, tracks } = useMicrophoneAndCameraTracks({});
+      console.log(tracks);
      
-
+     
       const fetchAllUsers = () => {
             const tokenString = sessionStorage.getItem('token');
            // const userToken = JSON.stringify(tokenString);
@@ -50,14 +53,13 @@ export const VideoCallPage = () => {
             }
          })
         }
-        
+      const channelName = 'DemoChannel';   
       const fetchAgoraToken = () => {
          const userString = sessionStorage.getItem('user');
          const user_details = JSON.parse(userString);
          //console.log(user_details.id);
          if(user_details !== null){
             const username = user_details.name;
-            const channelName = 'DemoChannel';
             http.post('/agora/token',{channelName:channelName,user:username}).then(res=>{
                try{
                   console.log(res.data);
@@ -67,7 +69,56 @@ export const VideoCallPage = () => {
                }
             })
          }   
-      }  
+      } 
+      
+      // useEffect(() => {
+      //    // function to initialise the SDK
+      //    let init = async (name: string = "") => {
+      //      console.log("init", name);
+      //      client.on("user-published", async (user, mediaType) => {
+      //        await client.subscribe(user, mediaType);
+      //        console.log("subscribe success");
+      //        if (mediaType === "video") {
+      //          setUsers((prevUsers) => {
+      //            return [...prevUsers, user];
+      //          });
+      //        }
+      //       //  if (mediaType === "audio") {
+      //       //    user.audioTrack?.play();
+      //       //  }
+      //      });
+     
+      //      client.on("user-unpublished", (user, type) => {
+      //        console.log("unpublished", user, type);
+      //       //  if (type === "audio") {
+      //       //    user.audioTrack?.stop();
+      //       //  }
+      //        if (type === "video") {
+      //          setUsers((prevUsers) => {
+      //            return prevUsers.filter((User) => User.uid !== user.uid);
+      //          });
+      //        }
+      //      });
+     
+      //      client.on("user-left", (user) => {
+      //        console.log("leaving", user);
+      //        setUsers((prevUsers) => {
+      //          return prevUsers.filter((User) => User.uid !== user.uid);
+      //        });
+      //      });
+     
+      //      await client.join(config.appId, name, config.token, null);
+      //      if (tracks) await client.publish([tracks[0], tracks[1]]);
+      //      setStart(true);
+     
+      //    };
+     
+      //    if (ready && tracks) {
+      //      console.log("init ready");
+      //      init(channelName);
+      //    }
+     
+      //  }, [channelName, client, ready, tracks]);
 return (
 <>
 <section>
@@ -77,11 +128,10 @@ return (
                   <div className="clearfix">
                      <div className="col-12">
                         <div className="video-call">
-                        <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width="100%" height="100%" />
+                           {ready && (<AgoraVideoPlayer videoTrack={tracks[0]} style={{height:'50vh',width:'100vw'}}/>)}
+                        
                         </div>
-                        <div class="video-sm">
-                        <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width={100} height="100" />
-                        </div>
+                       
                      </div>
                   </div>
                   <div className="chat-i-refresh">
