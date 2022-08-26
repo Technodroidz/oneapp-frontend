@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
 import http from '../http'
 export const Signup = () => {
 
@@ -19,7 +20,8 @@ export const Signup = () => {
            try{ 
                // console.log(res);
                if(res.status === 200){
-               alert(res.data);
+              // alert(res.data);
+              swal(res.data);
                navigate('/Login');
                }
             }catch(e){

@@ -6,6 +6,7 @@ import 'react-tabs/style/react-tabs.css';
 import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
 import http from '../http'
 export const Chat = () => {
    const navigate = useNavigate();
@@ -20,7 +21,8 @@ export const Chat = () => {
       const userToken = JSON.stringify(tokenString);
       //console.log(userToken);
       if(tokenString === null){
-         alert('Please Login!')
+       //  alert('Please Login!');
+         swal("Please Login!");
          navigate('/Login');
       }
       const userString = sessionStorage.getItem('user');

@@ -1,8 +1,42 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
+import http from '../http'
 export const Header = () => {
+   const navigate = useNavigate();
+   useEffect(()=>{
+      fetchCallDetails();
+   },[]);
+
+   const fetchCallDetails = () => {
+      const tokenString = sessionStorage.getItem('token');
+      if(tokenString != null){
+         const userString = sessionStorage.getItem('user');
+         const user_details = JSON.parse(userString);
+         const userid = user_details.id;
+         //console.log(user_details.id);
+         http.get('/fetchcalldetails').then(res=>{
+            try{
+             //setChatusers(res.data);
+             const user_details = JSON.stringify(res);
+             const user_detailsss = JSON.parse(user_details);
+             //  console.log(user_detailsss.data[0].personcalledid);
+               if(userid == user_detailsss.data[0].personcalledid){
+                  swal("Incoming Call..!");
+                  navigate('/IncomingCallPage');
+               }
+             }catch(e){
+               console.log('error', e);        
+             }
+          })
+      
+      }
+  }
+
 return (
 <>
 <header>

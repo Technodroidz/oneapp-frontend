@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import swal from 'sweetalert';
 export default function AuthUser(){
     
     const navigate = useNavigate();
@@ -26,7 +27,8 @@ export default function AuthUser(){
 
         setToken(token);
         setUser(user);
-        alert('Login Successfull!')
+      //  alert('Login Successfull!')
+        swal("Login Successfull!");
         navigate('/');
     }
 

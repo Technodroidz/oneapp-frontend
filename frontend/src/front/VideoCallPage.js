@@ -8,6 +8,7 @@ import { AgoraVideoPlayer, createClient, createMicrophoneAndCameraTracks, Client
   IAgoraRTCRemoteUser, ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
 import { AGORA_APP_ID } from "../agora.config";
 import ReactPlayer from 'react-player';
+import swal from 'sweetalert';
 import http from '../http'
 export const VideoCallPage = () => {  
      const navigate = useNavigate();
@@ -37,10 +38,9 @@ export const VideoCallPage = () => {
      
       const fetchAllUsers = () => {
             const tokenString = sessionStorage.getItem('token');
-           // const userToken = JSON.stringify(tokenString);
-            //console.log(userToken);
             if(tokenString === null){
-               alert('Please Login!')
+              // alert('Please Login!');
+               swal("Please Login!");
                navigate('/Login');
             }
    
@@ -53,17 +53,29 @@ export const VideoCallPage = () => {
             }
          })
         }
-      const channelName = 'DemoChannel';   
+      let r = (Math.random() + 1).toString(36).substring(2);
+     // console.log("random", r); 
+      let channelName = 'oneappcall'.concat(r); 
+     // const channelName = 'DemoChannel'; 
+    // console.log(channelName);   
       const fetchAgoraToken = () => {
          const userString = sessionStorage.getItem('user');
          const user_details = JSON.parse(userString);
          //console.log(user_details.id);
          if(user_details !== null){
             const username = user_details.name;
+            const userid = user_details.id;
             http.post('/agora/token',{channelName:channelName,user:username}).then(res=>{
                try{
                   console.log(res.data);
-                  console.log(tracks);
+                  http.post('/savechannel',{channelName:channelName,token:res.data,callerid:userid,calleeid:id}).then(result=>{
+                     try{
+                        console.log(result.data);
+                        
+                     }catch(e){
+                        console.log('error', e);        
+                     }
+                  })
                }catch(e){
                   console.log('error', e);        
                }
@@ -71,54 +83,6 @@ export const VideoCallPage = () => {
          }   
       } 
       
-      // useEffect(() => {
-      //    // function to initialise the SDK
-      //    let init = async (name: string = "") => {
-      //      console.log("init", name);
-      //      client.on("user-published", async (user, mediaType) => {
-      //        await client.subscribe(user, mediaType);
-      //        console.log("subscribe success");
-      //        if (mediaType === "video") {
-      //          setUsers((prevUsers) => {
-      //            return [...prevUsers, user];
-      //          });
-      //        }
-      //       //  if (mediaType === "audio") {
-      //       //    user.audioTrack?.play();
-      //       //  }
-      //      });
-     
-      //      client.on("user-unpublished", (user, type) => {
-      //        console.log("unpublished", user, type);
-      //       //  if (type === "audio") {
-      //       //    user.audioTrack?.stop();
-      //       //  }
-      //        if (type === "video") {
-      //          setUsers((prevUsers) => {
-      //            return prevUsers.filter((User) => User.uid !== user.uid);
-      //          });
-      //        }
-      //      });
-     
-      //      client.on("user-left", (user) => {
-      //        console.log("leaving", user);
-      //        setUsers((prevUsers) => {
-      //          return prevUsers.filter((User) => User.uid !== user.uid);
-      //        });
-      //      });
-     
-      //      await client.join(config.appId, name, config.token, null);
-      //      if (tracks) await client.publish([tracks[0], tracks[1]]);
-      //      setStart(true);
-     
-      //    };
-     
-      //    if (ready && tracks) {
-      //      console.log("init ready");
-      //      init(channelName);
-      //    }
-     
-      //  }, [channelName, client, ready, tracks]);
 return (
 <>
 <section>

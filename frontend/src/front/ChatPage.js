@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AgoraRTC from "agora-rtc-sdk";
 import { AGORA_APP_ID } from "../agora.config";
+import swal from 'sweetalert';
 import http from '../http'
 
 export const ChatPage = () => {  
@@ -38,16 +39,11 @@ const hideModal5 = () => { setIsOpen5(false);};
 
       const fetchAllUsers = () => {
          const tokenString = sessionStorage.getItem('token');
-        // const userToken = JSON.stringify(tokenString);
-         //console.log(userToken);
          if(tokenString === null){
-            alert('Please Login!')
+           // alert('Please Login!');
+            swal("Please Login!");
             navigate('/Login');
          }
-         //const userString = sessionStorage.getItem('user');
-        // const user_details = JSON.parse(userString);
-         //console.log(user_details.id);
-        // const userID = user_details.id;
 
       http.get('/userdetails/'+id).then(res=>{
         try{
