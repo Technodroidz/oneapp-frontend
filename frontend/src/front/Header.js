@@ -4,6 +4,10 @@ import { Link, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AgoraVideoPlayer, createClient, createMicrophoneAndCameraTracks, ClientConfig,
+   IAgoraRTCRemoteUser, ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
+import { AGORA_APP_ID } from "../agora.config";
+import ReactPlayer from 'react-player';
 import swal from 'sweetalert';
 import http from '../http'
 export const Header = () => {
@@ -30,7 +34,7 @@ export const Header = () => {
                   navigate('/IncomingCallPage');
                }
              }catch(e){
-               console.log('error', e);        
+               console.log('error', e)       
              }
           })
       
