@@ -42,49 +42,42 @@ export const Home = () => {
 
 
    
-$(document).ready(function() {
-$('#vip-channels').owlCarousel({
-loop:true,
-margin:0,
-nav:true,
-responsive:{0:{items:3},600:{items:4},1000:{items:6}
-},
-navText: ["<img src='img/chevrons-left.png'/>","<img src='img/chevrons-right.png'/>"]
-});
-});
-// 
-$(document).ready(function() {
-$('#tv-stream').owlCarousel({
-loop:true,
-margin:0,
-nav:true,
-responsive:{0:{items:3},600:{items:4},1000:{items:6}
-},
-navText: ["<img src='img/chevrons-left.png'/>","<img src='img/chevrons-right.png'/>"]
-});
-});
-//
-$(document).ready(function() {
-$('#radio-channels').owlCarousel({
-loop:true,
-margin:0,
-nav:true,
-responsive:{0:{items:3},600:{items:4},1000:{items:6}
-},
-navText: ["<img src='img/chevrons-left.png'/>","<img src='img/chevrons-right.png'/>"]
-});
-});
-//
-$(document).ready(function() {
-$('#one-appchannels').owlCarousel({
-loop:true,
-margin:0,
-nav:true,
-responsive:{0:{items:3},600:{items:4},1000:{items:6}
-},
-navText: ["<img src='img/chevrons-left.png'/>","<img src='img/chevrons-right.png'/>"]
-});
-});
+   $(document).ready(function() {
+      setTimeout(() => {
+      $('#vip-channels').owlCarousel({
+      loop:true,
+      margin:0,
+      nav:true,
+      responsive:{0:{items:3},600:{items:4},1000:{items:6}
+      },
+      navText: ["<img src='img/chevrons-left.png'/>","<img src='img/chevrons-right.png'/>"]
+      });
+      $('#tv-stream').owlCarousel({
+      loop:true,
+      margin:0,
+      nav:true,
+      responsive:{0:{items:3},600:{items:4},1000:{items:6}
+      },
+      navText: ["<img src='img/chevrons-left.png'/>","<img src='img/chevrons-right.png'/>"]
+      });
+      $('#radio-channels').owlCarousel({
+      loop:true,
+      margin:0,
+      nav:true,
+      responsive:{0:{items:3},600:{items:4},1000:{items:6}
+      },
+      navText: ["<img src='img/chevrons-left.png'/>","<img src='img/chevrons-right.png'/>"]
+      });
+      $('#one-appchannels').owlCarousel({
+      loop:true,
+      margin:0,
+      nav:true,
+      responsive:{0:{items:3},600:{items:4},1000:{items:6}
+      },
+      navText: ["<img src='img/chevrons-left.png'/>","<img src='img/chevrons-right.png'/>"]
+      });
+      }, 5000);
+      });
 return (
 <>    
 <div className="masthead">
@@ -186,14 +179,14 @@ return (
                {allyoutube.map((youtube,index)=>( 
                   <div className="item">
                      <div className="client-inners">
-                        <Link to="/DetailsPage">
+                        <Link to={{ pathname: "/DetailsPage/" + youtube.videoid }}>
                         <img src={youtube.image} alt="img"/></Link>
-                        <Link to="/DetailsPage">
+                        <Link to={{ pathname: "/DetailsPage/" + youtube.videoid }}>
                         {/* <h6>
                         {youtube.channeltitle}
                         </h6> */}
                         <h6>
-                        {youtube.newstitle}
+                        {youtube.title}
                         </h6>
                         </Link>
                         <p><i className="fa fa-star"></i> 3k  &nbsp; <i className="fa fa-circle dot-red"></i> <samp className="circle-title">100K</samp></p>

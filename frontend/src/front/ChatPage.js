@@ -72,7 +72,7 @@ return (
                        
                            <div className="col-8 d-flex">
                               <Link to="/">
-                              <img src="/img/euronews.png" alt="avatar"/>
+                              <img src="..//img/euronews.png" alt="avatar"/>
                               </Link>
                               <div className="chat-about">
                                  <h6 class="m-b-0">{allchat.name}</h6> 

@@ -34,6 +34,9 @@ import {MyChannel} from './front/MyChannel';
 import {ViewChannel} from './front/ViewChannel';
 import {CreateNewEvent} from './front/CreateNewEvent';
 import {PeopleConnect} from './front/PeopleConnect';
+import {IncomingAudioCall} from './front/IncomingAudioCall';
+import {IncomingVideoCall} from './front/IncomingVideoCall';
+import {RadioChannels} from './front/RadioChannels';
 
 function App() {
   return (
@@ -44,7 +47,7 @@ function App() {
           <Route path="/Login" element={<Login />}></Route> 
           <Route path="/Signup" element={<Signup />}></Route>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/DetailsPage" element={<DetailsPage />}></Route>
+          <Route path="/DetailsPage/:id" element={<DetailsPage />}></Route>
           <Route path="/PostPage" element={<PostPage />}></Route>
           <Route path="/RoomPage" element={<RoomPage />}></Route>
           <Route path="/MessagePage" element={<MessagePage />}></Route> 
@@ -73,6 +76,9 @@ function App() {
           <Route path="/ViewChannel" element={<ViewChannel />}></Route>
           <Route path="/CreateNewEvent" element={<CreateNewEvent />}></Route>
           <Route path="/PeopleConnect" element={<PeopleConnect />}></Route>
+          <Route path="/IncomingAudioCall" element={<IncomingAudioCall />}></Route>
+          <Route path="/IncomingVideoCall" element={<IncomingVideoCall />}></Route>
+          <Route path="/RadioChannels" element={<RadioChannels />}></Route>
         </Routes>       
     </Router>
     </div>

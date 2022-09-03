@@ -99,10 +99,10 @@ return (
                      </div>
                   </div>
                   <div className="chat-i-refresh">
-                     <Link to="/VideoChat">
-                     <i className="fa fa-refresh "></i></Link>
+                     {/* <Link to="/VideoChat">
+                     <i className="fa fa-refresh "></i></Link> */}
                   </div>
-                  <div className="videocall-btn-section">
+                  {/* <div className="videocall-btn-section">
                      <Link to="/VideoCallPage">
                      <span className="btn3"><i className="fa fa-microphone"></i></span></Link>
                      <Link to="/VideoCallPage">
@@ -113,7 +113,7 @@ return (
                      <span className="btn3"><i className="fa fa-user-plus"></i></span></Link>
                      <Link to="/VideoCallPage">
                      <span className="btn3"><i className="fa fa-video-camera"></i></span></Link>
-                  </div>
+                  </div> */}
                </div>
             </div>
          </div>
