@@ -31,7 +31,7 @@ export const Header = () => {
              //  console.log(user_detailsss.data[0].personcalledid);
                if(userid == user_detailsss.data[0].personcalledid){
                   swal("Incoming Call..!");
-                  navigate('/IncomingCallPage');
+                  navigate('/IncomingVideoCall');
                }
              }catch(e){
                console.log('error', e)       

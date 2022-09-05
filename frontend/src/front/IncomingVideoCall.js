@@ -3,9 +3,83 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { $ }  from 'react-jquery-plugin'
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { AgoraVideoPlayer, createClient, createMicrophoneAndCameraTracks, ClientConfig,
+   IAgoraRTCRemoteUser, ICameraVideoTrack, IMicrophoneAudioTrack } from "agora-rtc-react";
+import { AGORA_APP_ID } from "../agora.config";
+import ReactPlayer from 'react-player';
+import swal from 'sweetalert';
+import http from '../http'
 
-import ReactPlayer from 'react-player'
+
 export const IncomingVideoCall = () => {  
+   const navigate = useNavigate();
+   useEffect(()=>{
+      fetchCallDetails();
+   },[]);
+
+   const config = {mode: "rtc", codec: "vp8"}  
+   const useClient = createClient(config);
+   const useMicrophoneAndCameraTracks = createMicrophoneAndCameraTracks({
+
+   });
+  // console.log(useMicrophoneAndCameraTracks); 
+   const client = useClient();
+   const { ready, tracks } = useMicrophoneAndCameraTracks({});
+
+   const fetchCallDetails = () => {
+      const tokenString = sessionStorage.getItem('token');
+      if(tokenString != null){
+         const userString = sessionStorage.getItem('user');
+         const user_details = JSON.parse(userString);
+         const userid = user_details.id;
+         //console.log(user_details.id);
+         http.get('/fetchcalldetails').then(res=>{
+            try{
+             //setChatusers(res.data);
+             const user_details = JSON.stringify(res);
+             const user_detailsss = JSON.parse(user_details);
+             //  console.log(user_detailsss.data[0].personcalledid);
+               if(userid == user_detailsss.data[0].personcalledid){
+                 // swal("Call Joined..!");
+                 const uid = null;
+                 const channelname = user_detailsss.data[0].channelname;
+                  // client.join(user_detailsss.data[0].token, "channelname", null, (uid)=>{
+                  //    // Create a local stream
+                  //    let localStream = client.createStream({
+                  //       audio: true,
+                  //       video: true,
+                  //   });
+                  //   // Initialize the local stream
+                  //   localStream.init(()=>{
+                  //       // Play the local stream
+                  //      // localStream.play("me");
+                  //       // Publish the local stream
+                  //       client.publish(localStream);
+                  //   },)
+                  //    //alert("hello");
+                  //    }, function(err) {
+                  //       console.error("client join failed ", err)
+                  // //       // Error handling
+                  //    });
+               }
+             }catch(e){
+               console.log('error', e)       
+             }
+          })
+      
+      }
+  }
+ 
+  const leaveChannel = () => {
+      client.leave();
+      client.removeAllListeners();
+     // tracks[1].close();
+      swal("Call Disconnected..!");
+      navigate('/');
+ };
+
     $(document).ready(function(){
         $("#myModal").modal('show');
         $("#cancel").on('click', function(){ 
@@ -28,8 +102,7 @@ return (
          </div>
          <div className="call-btn-section">         
         
-            <Link to="/IncomingAudioCall">
-            <span className="btn2"><i className="fa fa-phone icon-rotate"></i></span></Link>
+            <span className="btn2"  onClick={leaveChannel}><i className="fa fa-phone icon-rotate"></i></span>
             <spam className="close" id='cancel' data-dismiss="modal">
             <span className="btn-pic "><i className="fa fa-phone icon-rotate"></i></span>
             </spam>

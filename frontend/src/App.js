@@ -78,7 +78,7 @@ function App() {
           <Route path="/PeopleConnect" element={<PeopleConnect />}></Route>
           <Route path="/IncomingAudioCall" element={<IncomingAudioCall />}></Route>
           <Route path="/IncomingVideoCall" element={<IncomingVideoCall />}></Route>
-          <Route path="/RadioChannels" element={<RadioChannels />}></Route>
+          <Route path="/RadioChannels/:id" element={<RadioChannels />}></Route>
         </Routes>       
     </Router>
     </div>

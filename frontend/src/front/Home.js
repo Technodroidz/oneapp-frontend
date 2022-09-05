@@ -214,13 +214,20 @@ return (
                {allfm.map((fm,index)=>(
                   <div className="item">
                      <div className="client-inners">
-                        <a href= {fm.album_url}>
+                         <a href= {fm.album_url}>
                         <img src={fm.image} alt="img"/></a>
                         <a href= {fm.album_url}>
                         <h6>
                             {fm.album}
                         </h6>
-                        </a>
+                        </a> 
+                        {/* <Link to={{ pathname: "/RadioChannels/" + fm.id }}>
+                        <img src={fm.image} alt="img"/></Link>
+                        <Link to={{ pathname: "/RadioChannels/" + fm.id }}>
+                        <h6>
+                        {fm.album}
+                        </h6>
+                        </Link> */}
                         <p><i className="fa fa-star"></i> 3k  &nbsp; <i className="fa fa-circle dot-red"></i> <samp className="circle-title">100K</samp></p>
                      </div>
                   </div>
