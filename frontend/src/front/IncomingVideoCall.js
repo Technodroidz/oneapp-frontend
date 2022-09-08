@@ -45,24 +45,24 @@ export const IncomingVideoCall = () => {
                  // swal("Call Joined..!");
                  const uid = null;
                  const channelname = user_detailsss.data[0].channelname;
-                  // client.join(user_detailsss.data[0].token, "channelname", null, (uid)=>{
-                  //    // Create a local stream
-                  //    let localStream = client.createStream({
-                  //       audio: true,
-                  //       video: true,
-                  //   });
-                  //   // Initialize the local stream
-                  //   localStream.init(()=>{
-                  //       // Play the local stream
-                  //      // localStream.play("me");
-                  //       // Publish the local stream
-                  //       client.publish(localStream);
-                  //   },)
-                  //    //alert("hello");
-                  //    }, function(err) {
-                  //       console.error("client join failed ", err)
-                  // //       // Error handling
-                  //    });
+                   client.join(user_detailsss.data[0].token, "channelname", null, (uid)=>{
+                      // Create a local stream
+                      let localStream = client.createStream({
+                         audio: true,
+                         video: true,
+                     });
+                     // Initialize the local stream
+                     localStream.init(()=>{
+                         // Play the local stream
+                        // localStream.play("me");
+                         // Publish the local stream
+                         client.publish(localStream);
+                     },)
+                      //alert("hello");
+                      }, function(err) {
+                         console.error("client join failed ", err)
+                         // Error handling
+                      });
                }
              }catch(e){
                console.log('error', e)       

@@ -33,7 +33,7 @@ export default function AuthUser(){
     }
 
     const http = axios.create({
-        baseURL:"http://younggeeks.co.in/oneapp_backend/api",
+        baseURL:"https://tec24.in/oneapp_backend/api",
         headers:{
            "Content-type":"application/json"
         }

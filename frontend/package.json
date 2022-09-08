@@ -34,7 +34,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://younggeeks.co.in/oneapp_backend/api",
+  "proxy": "https://tec24.in/oneapp_backend/api",
   "eslintConfig": {
     "extends": [
       "react-app",

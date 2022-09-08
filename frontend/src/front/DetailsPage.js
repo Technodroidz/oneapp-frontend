@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import ReactPlayer from 'react-player'
 export const DetailsPage = () => {
    const {id} = useParams(); 
 

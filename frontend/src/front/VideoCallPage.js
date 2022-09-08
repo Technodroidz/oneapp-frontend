@@ -33,7 +33,7 @@ export const VideoCallPage = () => {
      // console.log(useMicrophoneAndCameraTracks); 
       const client = useClient();
       const { ready, tracks } = useMicrophoneAndCameraTracks({});
-      console.log(tracks);
+      console.log(client);
      
      
       const fetchAllUsers = () => {
