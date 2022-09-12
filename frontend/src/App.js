@@ -1,42 +1,61 @@
 import './App.css';
 import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import Header from './front/Header';
-import {Login} from './front/Login';
-import {Signup} from './front/Signup';
-import {Home} from './front/Home';
-import {DetailsPage} from './front/DetailsPage';
-import {PostPage} from './front/PostPage';
-import {RoomPage} from './front/RoomPage';
-import {MessagePage} from './front/MessagePage';
-import {AudioRoom} from './front/AudioRoom';
-import {Profile} from './front/Profile';
-import {Chat} from './front/Chat';  
-import {ChatPage} from './front/ChatPage';
-import {AudioCallPage} from './front/AudioCallPage';
-import {VideoCallPage} from './front/VideoCallPage';
-import {VideoCallPage2} from './front/VideoCallPage2';
-import {IncomingCallPage} from './front/IncomingCallPage';
-import {GroupVideoCallPage} from './front/GroupVideoCallPage';
-import {CallPage} from './front/CallPage';
-import {About} from './front/About';
-import {Contact} from './front/Contact';
-import {PrivacyPolicy} from './front/PrivacyPolicy';
-import {TermsConditions} from './front/TermsConditions';
-import {Help} from './front/Help';
-import {Settings} from './front/Settings';
-import {ViewContact} from './front/ViewContact';
-import {Viewdocs} from './front/Viewdocs';
-import {ReportProblem} from './front/ReportProblem';
-import {History} from './front/History';
-import {ScheduleEvent} from './front/ScheduleEvent';
-import {MyChannel} from './front/MyChannel';
-import {ViewChannel} from './front/ViewChannel';
-import {CreateNewEvent} from './front/CreateNewEvent';
-import {PeopleConnect} from './front/PeopleConnect';
-import {IncomingAudioCall} from './front/IncomingAudioCall';
-import {IncomingVideoCall} from './front/IncomingVideoCall';
-import {RadioChannels} from './front/RadioChannels';
+
+import Header from './component/Header/Header';
+
+import {Login} from './component/Login';
+import {Signup} from './component/Signup';
+
+import {Home} from './component/Home/Home';
+
+import {DetailsPage} from './component/DetailsPage/DetailsPage';
+import {PostPage} from './component/DetailsPage/PostPage';
+import {RoomPage} from './component/DetailsPage/RoomPage';
+import {MessagePage} from './component/DetailsPage/MessagePage';
+
+import {AudioRoom} from './component/Audio/AudioRoom';
+
+import {Profile} from './component/Profile/Profile';
+
+import {Chat} from './component/Chat/Chat';  
+import {ChatPage} from './component/Chat/ChatPage';
+
+import {AudioCallPage} from './component/call/AudioCallPage';
+import {VideoCallPage} from './component/call/VideoCallPage';
+import {GroupVideoCallPage} from './component/call/GroupVideoCallPage';
+import {CallPage} from './component/call/CallPage';
+import {VideoCallPage2} from './component/call/VideoCallPage2';
+
+import {About} from './component/about/About';
+
+import {Contact} from './component/contact/Contact';
+
+import {PrivacyPolicy} from './component/Help/PrivacyPolicy';
+import {TermsConditions} from './component/Help/TermsConditions';
+import {Help} from './component/Help/Help';
+import {ReportProblem} from './component/Help/ReportProblem';
+
+import {Settings} from './component/Setting/Settings';
+
+import {ViewContact} from './component/View/ViewContact';
+import {Viewdocs} from './component/View/Viewdocs';
+
+import {History} from './component/History/History';
+
+import {CreateNewEvent} from './component/Event/CreateNewEvent';
+import {ScheduleEvent} from './component/Event/ScheduleEvent';
+
+import {MyChannel} from './component/Channel/MyChannel';
+import {ViewChannel} from './component/Channel/ViewChannel';
+
+import {PeopleConnect} from './component/PeopleConnect/PeopleConnect';
+
+import {IncomingCallPage} from './component/IncomingCall/IncomingCallPage';
+import {IncomingAudioCall} from './component/IncomingCall/IncomingAudioCall';
+import {IncomingVideoCall} from './component/IncomingCall/IncomingVideoCall';
+
+import {RadioChannels} from './component/Radio/RadioChannels';
 
 function App() {
   return (
